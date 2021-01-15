@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="INFO">
+    <!-- 先定义所有appender-->
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] [%t] - %l - %m%n"/>
+        </console>
+    </appenders>
+    <!-- 然后定义logger，只有定义了logger并引入的appender才会生效-->
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+    <AsyncLogger name="com.domain.app.web" includeLocation="true">
+        <AppenderRef ref="File" />
+    </AsyncLogger>
+</configuration>
