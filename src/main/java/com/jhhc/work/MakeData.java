@@ -157,20 +157,21 @@ public class MakeData {
                     pw[0] = new PrintWriter(bw[0]);
 
                     log.info("开始写入头数据");
-                    writeHead(pw[0], fileName.substring(32,37));
+                    String seq = fileName.substring(fileName.length() - 9, fileName.length() - 4);
+                    writeHead(pw[0], seq);
                     log.info("开始逐行写入数据...");
                     for (int j = 0; j < dataCount; j++) {
                         String s = "";
                         if (RandomFault.getFault(setting.getErrorRate())) {
                             s = getErrorMessage(j);
                         } else {
-                            s = getLineNew(j * finalI, provCd, startTm);
+                            s = getLineNew(j * (finalI+1), provCd, startTm);
                         }
 
                         pw[0].println(s);
                     }
                     log.info("开始写入尾数据");
-                    writeTail(pw[0], fileName, dataCount);
+                    writeTail(pw[0], seq, dataCount);
                     pw[0].flush();
                     long end = System.currentTimeMillis();
                     log.info("文件生成成功, 耗时:" + (end-start) + "毫秒, 开始重命名...");
@@ -263,8 +264,8 @@ public class MakeData {
      * @param fileName
      * @param dataCount
      */
-    private void writeTail(PrintWriter pw, String fileName, int dataCount) {
-        String head = "90" + fileName.substring(32,37) + "GMBOSS" + dataCount;
+    private void writeTail(PrintWriter pw, String seq, int dataCount) {
+        String head = "90" + seq + "GMBOSS" + dataCount;
         pw.println(head);
     }
 
