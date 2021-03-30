@@ -6,13 +6,16 @@ import com.jhhc.conf.Setting;
 import com.jhhc.conf.SpringConfig;
 import com.jhhc.utils.DateUtils;
 import com.jhhc.work.MakeData;
+import com.jhhc.work.NewFileTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xiaojiang
@@ -34,6 +37,14 @@ public class Main {
         Setting setting = context.getBean("setting", Setting.class);
         DataSourceService dataSourceService = context.getBean("dataSourceService", DataSourceService.class);
         dataSourceService.loadDataSource();
+
+        NewFileTest newFileTest = context.getBean("newFileTest", NewFileTest.class);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            list.add("测试测试测试测试测试测试测试测试测试测试测试测试测试测试" + i);
+        }
+        newFileTest.newFileTestMethod(list);
+        System.exit(1);
         log.info("造数据程序启动...");
         if (!setting.isTest()) { // 测试阶段不验证参数
             if (args == null) {

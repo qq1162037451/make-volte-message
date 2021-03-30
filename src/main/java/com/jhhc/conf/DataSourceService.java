@@ -43,6 +43,7 @@ public class DataSourceService extends Setting{
         dataSource.setPassword(setting.getPassword());
         dataSource.setMaxActive(setting.getMaxActive());
         dataSource.setMaxWait(setting.getMaxWait());
+        dataSource.setDefaultAutoCommit(true);
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 }
